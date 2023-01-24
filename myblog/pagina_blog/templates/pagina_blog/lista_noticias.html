@@ -1,0 +1,14 @@
+{% extends "pagina_blog/base.html" %}
+
+{% block subtitulo %}Noticias{% endblock subtitulo %}
+
+{% block contenido %}
+<h1>Noticias</h1>
+<a href="{% url 'publicar_noticias' %}">Publicar</a>
+
+<ul>
+{% for noticia in noticias %}
+    <li>{{ noticia.titulo }}</li>
+{% endfor %}
+</ul>
+{% endblock contenido %}
