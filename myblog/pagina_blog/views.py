@@ -33,7 +33,7 @@ def publicar_noticias(request):
              noticia = Noticias(
                  titulo=data['titulo'], 
                  subtitulo=data['subtitulo'], 
-                 fecha_publicacion=data['fecha'], 
+                 fecha_publicacion=data['fecha_publicacion'], 
                  autor=data['autor']
                  )
              noticia.save()
