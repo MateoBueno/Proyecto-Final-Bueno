@@ -11,7 +11,7 @@ from pagina_blog.forms import NoticiaFormulario
 def inicio(request):
     return render(
         request=request,
-        template_name='pagina_blog/base.html'
+        template_name='pagina_blog/inicio.html'
         )
 
 def listar_noticias(request):
