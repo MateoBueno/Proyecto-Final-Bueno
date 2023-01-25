@@ -47,8 +47,15 @@ def publicar_noticias(request):
          context={'formulario': formulario},
     )
 
-# class NoticiaCreateView(CreateView):
-#     model = Noticias
-#     fields = ['titulo','subtitulo','fecha_publicacion','autor']
-#     success_url = reverse_lazy('listar_noticas')
-#     template_name = 'pagina_blog/form_noticias.html'
+def buscar_noticias(request):
+    if request.method == "POST":
+        data = request.POST
+        noticias = Noticias.objects.filter(fecha_publicacion__exact=data['fecha_publicacion']) 
+        contexto = {
+            'noticias' : noticias
+        }
+        return render(
+            request=request,
+            template_name= 'pagina_blog/lista_noticias.html',
+            context = contexto 
+        )

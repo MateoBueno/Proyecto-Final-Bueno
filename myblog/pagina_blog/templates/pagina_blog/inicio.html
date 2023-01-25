@@ -1,10 +1,9 @@
 {% extends "pagina_blog/base.html" %}
 
-{% block subtitulo %}Noticias{% endblock subtitulo %}
+{% block subtitulo %}Inicio{% endblock subtitulo %}
 
 {% block contenido %}
-<h1>Noticias</h1>
-<a href="{% url 'publicar_noticias' %}">Publicar</a>
+<h1>Bienvenido XX</h1>
 
 <br>       
 <form action="{% url 'buscar_noticias' %}" method="post">
@@ -14,10 +13,4 @@
     <input type="submit" value="Buscar">
 </form> 
 <br>
-
-<ul>
-{% for noticia in noticias %}
-    <li>{{ noticia.titulo }}</li>
-{% endfor %}
-</ul>
 {% endblock contenido %}
