@@ -33,8 +33,9 @@ def publicar_noticias(request):
              noticia = Noticias(
                  titulo=data['titulo'], 
                  subtitulo=data['subtitulo'], 
+                 cuerpo=data['cuerpo'],
                  fecha_publicacion=data['fecha_publicacion'], 
-                 autor=data['autor']
+                 autor=data['autor'],
                  )
              noticia.save()
              url_exitosa = reverse('listar_noticias')
@@ -80,8 +81,9 @@ def editar_noticia(request, id):
             data = formulario.cleaned_data
             noticia.titulo=data['titulo'], 
             noticia.subtitulo=data['subtitulo'], 
+            noticia.cuerpo=data['cuerpo'],
             noticia.fecha_publicacion=data['fecha_publicacion'], 
-            noticia.autor=data['autor']
+            noticia.autor=data['autor'],
             noticia.save()
             url_exitosa = reverse('listar_noticias')
             return redirect(url_exitosa)
@@ -95,6 +97,6 @@ def editar_noticia(request, id):
         formulario = NoticiaFormulario(initial=inicial)
     return render(
         request=request,
-        template_name='pagina_blog/form_noticia.html',
+        template_name='pagina_blog/form_noticias.html',
         context={'formulario': formulario, 'noticia': noticia, 'es_update': True},
     )
