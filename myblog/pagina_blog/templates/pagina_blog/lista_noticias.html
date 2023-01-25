@@ -15,9 +15,27 @@
 </form> 
 <br>
 
-<ul>
-{% for noticia in noticias %}
-    <li>{{ noticia.titulo }}</li>
-{% endfor %}
-</ul>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Titulo</th>
+            <td>Ver</td>
+            <td>Editar</td>
+            <td>Eliminar</td>
+        </tr>
+        {% for noticia in noticias %}
+        <tr>
+            <td>{{ noticia.titulo }}</td>
+            <td>
+                <a href="{% url 'ver_noticia' noticia.id %}">Ver</a>
+            </td>
+            <td>
+                <a href="{% url 'editar_noticia' noticia.id%}">Editar</a>
+            </td>
+            <td>Eliminar</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock contenido %}

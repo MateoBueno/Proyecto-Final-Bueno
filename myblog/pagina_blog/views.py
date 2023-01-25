@@ -59,3 +59,42 @@ def buscar_noticias(request):
             template_name= 'pagina_blog/lista_noticias.html',
             context = contexto 
         )
+
+def ver_noticia(request, id):
+    noticia = Noticias.objects.get(id=id)
+    contexto = {
+        'noticia' : noticia 
+    }
+    return render(
+        request=request,
+        template_name='pagina_blog/ver_noticia.html',
+        context = contexto
+    )
+
+def editar_noticia(request, id):
+    noticia = Noticias.objects.get(id=id)
+    if request.method == "POST":
+        formulario = NoticiaFormulario(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            noticia.titulo=data['titulo'], 
+            noticia.subtitulo=data['subtitulo'], 
+            noticia.fecha_publicacion=data['fecha_publicacion'], 
+            noticia.autor=data['autor']
+            noticia.save()
+            url_exitosa = reverse('listar_noticias')
+            return redirect(url_exitosa)
+    else: 
+        inicial = {
+            'titulo' : noticia.titulo,
+            'subtitulo' : noticia.subtitulo,
+            'fecha_publicacion' : noticia.fecha_publicacion,
+            'autor' : noticia.autor,
+        }
+        formulario = NoticiaFormulario(initial=inicial)
+    return render(
+        request=request,
+        template_name='pagina_blog/form_noticia.html',
+        context={'formulario': formulario, 'noticia': noticia, 'es_update': True},
+    )
