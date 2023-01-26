@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from pagina_blog.models import Noticias
 from pagina_blog.forms import NoticiaFormulario
@@ -14,6 +17,7 @@ def inicio(request):
         template_name='pagina_blog/inicio.html'
         )
 
+@login_required
 def listar_noticias(request):
     contexto = {
         'noticias' : Noticias.objects.all()
@@ -24,6 +28,7 @@ def listar_noticias(request):
         context = contexto
     ) 
 
+@login_required
 def publicar_noticias(request):
     if request.method == "POST":
          formulario = NoticiaFormulario(request.POST)
@@ -61,6 +66,7 @@ def buscar_noticias(request):
             context = contexto 
         )
 
+@login_required
 def ver_noticia(request, id):
     noticia = Noticias.objects.get(id=id)
     contexto = {
@@ -72,6 +78,7 @@ def ver_noticia(request, id):
         context = contexto
     )
 
+@login_required
 def editar_noticia(request, id):
     noticia = Noticias.objects.get(id=id)
     if request.method == "POST":
@@ -107,7 +114,7 @@ def mi_info(request):
         template_name='pagina_blog/about.html'
         )
 
-class NoticiaDeleteView(DeleteView):
+class NoticiaDeleteView(LoginRequiredMixin,DeleteView):
     model = Noticias
     success_url = reverse_lazy('listar_noticias')
     template_name = 'pagina_blog/confirmacion.html'
