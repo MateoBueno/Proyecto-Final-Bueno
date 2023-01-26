@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 
 from usuarios.forms import UserRegisterForm
 
@@ -19,3 +21,26 @@ def registro(request):
         template_name='usuarios/registro.html',
         context={'form':formulario},
     )
+
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            usuario = data.get('username')
+            password = data.get('password')
+            user = authenticate(username=usuario, password=password)
+
+            if user:
+                login(request=request, user=user)
+                url_exitosa = reverse('inicio')
+                return redirect(url_exitosa)
+    else: 
+        form = AuthenticationForm()
+    return render(
+        request=request,
+        template_name='usuarios/login.html',
+        context={'form':form},
+    )
+    
