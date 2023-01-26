@@ -79,11 +79,11 @@ def editar_noticia(request, id):
 
         if formulario.is_valid():
             data = formulario.cleaned_data
-            noticia.titulo=data['titulo'], 
-            noticia.subtitulo=data['subtitulo'], 
-            noticia.cuerpo=data['cuerpo'],
-            noticia.fecha_publicacion=data['fecha_publicacion'], 
-            noticia.autor=data['autor'],
+            noticia.titulo=data['titulo'] 
+            noticia.subtitulo=data['subtitulo'] 
+            noticia.cuerpo=data['cuerpo']
+            noticia.fecha_publicacion=data['fecha_publicacion'] 
+            noticia.autor=data['autor']
             noticia.save()
             url_exitosa = reverse('listar_noticias')
             return redirect(url_exitosa)
