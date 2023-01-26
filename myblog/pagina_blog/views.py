@@ -101,13 +101,6 @@ def editar_noticia(request, id):
         context={'formulario': formulario, 'noticia': noticia, 'es_update': True},
     )
 
-# def eliminar_noticia(request, id):
-#     noticia = Noticias.objects.get(id=id)
-#     if request.method == "POST":
-#         noticia.delete()
-#         url_exitosa = reverse('listar_noticias')
-#         return redirect(url_exitosa)
-
 def mi_info(request):
     return render(
         request=request,
