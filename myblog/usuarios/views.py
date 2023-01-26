@@ -3,6 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import LogoutView
 
 from usuarios.forms import UserRegisterForm
 
@@ -44,3 +45,6 @@ def login_view(request):
         context={'form':form},
     )
     
+class CustomLogoutView(LogoutView):
+    template_name = 'usuario/logout.html'
+    next_page = reverse_lazy('inicio')
