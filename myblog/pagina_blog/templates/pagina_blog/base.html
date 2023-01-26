@@ -26,9 +26,12 @@
             <div class="container">
                 <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'listar_noticias' %}">Noticias</a>
-                <a class="btn btn-primary" href="{% url 'registro' %}">Registrarse</a>
+                {% if user.is_authenticated %}
+                <a class="btn btn-danger" href="{% url 'logout' %}">Cerrar sesion</a>
+                {% else %}
+                <a class="btn btn-secondary" href="{% url 'registro' %}">Registrarse</a>
                 <a class="btn btn-primary" href="{% url 'login' %}">Iniciar sesion</a>
-                <a class="btn btn-primary" href="{% url 'logout' %}">Cerrar sesion</a>
+                {% endif %}
             </div>
         </nav>
 
