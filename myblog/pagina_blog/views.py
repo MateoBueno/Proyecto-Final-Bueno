@@ -101,15 +101,20 @@ def editar_noticia(request, id):
         context={'formulario': formulario, 'noticia': noticia, 'es_update': True},
     )
 
-def eliminar_noticia(request, id):
-    noticia = Noticias.objects.get(id=id)
-    if request.method == "POST":
-        noticia.delete()
-        url_exitosa = reverse('listar_noticias')
-        return redirect(url_exitosa)
+# def eliminar_noticia(request, id):
+#     noticia = Noticias.objects.get(id=id)
+#     if request.method == "POST":
+#         noticia.delete()
+#         url_exitosa = reverse('listar_noticias')
+#         return redirect(url_exitosa)
 
 def mi_info(request):
     return render(
         request=request,
         template_name='pagina_blog/about.html'
         )
+
+class NoticiaDeleteView(DeleteView):
+    model = Noticias
+    success_url = reverse_lazy('listar_noticias')
+    template_name = 'pagina_blog/confirmacion.html'
