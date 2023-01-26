@@ -107,3 +107,9 @@ def eliminar_noticia(request, id):
         noticia.delete()
         url_exitosa = reverse('listar_noticias')
         return redirect(url_exitosa)
+
+def mi_info(request):
+    return render(
+        request=request,
+        template_name='pagina_blog/about.html'
+        )
