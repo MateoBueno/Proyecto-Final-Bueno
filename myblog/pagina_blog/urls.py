@@ -1,7 +1,7 @@
 from django.urls import path, include
 from pagina_blog.views import (
   inicio,listar_noticias,publicar_noticias,
-  buscar_noticias,ver_noticia, editar_noticia
+  buscar_noticias,ver_noticia, editar_noticia, eliminar_noticia
 )
 
 urlpatterns = [
@@ -10,5 +10,6 @@ urlpatterns = [
   path('Buscar/', buscar_noticias, name= 'buscar_noticias'),
   path('Ver/<int:id>', ver_noticia, name= 'ver_noticia'),
   path('Editar-Noticia/<int:id>', editar_noticia, name= 'editar_noticia'),
+  path('Eliminar-noticia/<int:id>', eliminar_noticia, name='eliminar_noticia')
 ]
 
