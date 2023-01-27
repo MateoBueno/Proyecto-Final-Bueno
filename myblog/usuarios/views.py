@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from usuarios.forms import UserRegisterForm
+from usuarios.forms import UserRegisterForm, UserUpdateForm
 
 def registro(request):
     if request.method == "POST":
@@ -53,3 +54,12 @@ def login_view(request):
 class CustomLogoutView(LoginRequiredMixin,LogoutView):
     template_name = 'usuario/logout.html'
     next_page = reverse_lazy('inicio')
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('inicio')
+    template_name = 'usuarios/edit_perfil.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user
