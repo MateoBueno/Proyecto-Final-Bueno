@@ -53,6 +53,7 @@ def publicar_noticias(request):
          context={'formulario': formulario},
     )
 
+@login_required
 def buscar_noticias(request):
     if request.method == "POST":
         data = request.POST

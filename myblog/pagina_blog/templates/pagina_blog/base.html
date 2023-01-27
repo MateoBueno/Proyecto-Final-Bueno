@@ -29,7 +29,8 @@
                 {% if user.is_authenticated %}
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      {{ user.username }}
+                      <img src="{{ user.avatar.imagen.url }}" width="30" height="30" hspace="2"/>
+                      <span>{{ user.username }}</span>
                     </button>
                     <ul class="dropdown-menu">
                         <li>
