@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include 
 from pagina_blog.views import inicio 
 
@@ -23,3 +25,6 @@ urlpatterns = [
     path('pagina-blog/', include('pagina_blog.urls')),
     path('usuarios/', include('usuarios.urls')),
 ]
+
+#Para las imagenes 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

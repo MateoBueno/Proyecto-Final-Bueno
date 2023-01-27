@@ -4,11 +4,14 @@
 
 {% block contenido %}
 <h1>Bienvenido {{ request.user.first_name }}</h1>
+<p>Este es tu avatar:</p>
+<img src="{{ user.avatar.imagen.url }}" width="100" height="100"/>
 
+<br>
 <br>       
 <form action="{% url 'buscar_noticias' %}" method="post">
     {% csrf_token %}
-    <p>Fecha de publicacion de la noticia:</p>
+    <p>Buscar noticia:</p>
     <input type="date" name="fecha_publicacion" value='aaa-mm-dd'>
     <input type="submit" value="Buscar">
 </form> 

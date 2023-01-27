@@ -8,7 +8,8 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from usuarios.forms import UserRegisterForm, UserUpdateForm
+from usuarios.forms import UserRegisterForm, UserUpdateForm, AvatarFormulario
+from usuarios.models import Avatar
 
 def registro(request):
     if request.method == "POST":
@@ -63,3 +64,21 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+def agregar_avatar(request):
+    if request.method == "POST":
+        formulario = AvatarFormulario(request.POST, request.FILES)
+
+        if formulario.is_valid():
+            avatar = formulario.save()
+            avatar.user = request.user
+            avatar.save()
+            url_exitosa = reverse('inicio')
+            return redirect(url_exitosa)
+    else:
+        formulario = AvatarFormulario()
+    return render(
+        request=request,
+        template_name='usuarios/add_avatar.html',
+        context={'form': formulario},
+    )
