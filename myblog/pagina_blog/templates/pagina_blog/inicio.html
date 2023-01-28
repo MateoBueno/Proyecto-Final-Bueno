@@ -3,7 +3,7 @@
 {% block subtitulo %}Inicio{% endblock subtitulo %}
 
 {% block contenido %}
-<h1>Bienvenido {{ request.user.first_name }}</h1>
+<h1>Saludos {{ request.user.first_name }}</h1>
 <br>       
 <form action="{% url 'buscar_noticias' %}" method="post">
     {% csrf_token %}

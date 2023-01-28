@@ -1,4 +1,5 @@
 {% extends "pagina_blog/base.html" %}
+{% load static %}
 
 {% block subtitulo %}Acerca de mi{% endblock subtitulo %}
 
@@ -6,7 +7,7 @@
 
 <h1>Mateo Bueno</h1>
 
-<img src="C:\Users\Windows 10\Documents\MATE\Programacion\foto1" width="200" height="200" style="float: right; margin: 0 0 1em 2em"/>
+<img src="{% static 'assets/img/Foto2.jpeg' %}" width="250" height="250" style="float: right; margin: 0 0 1em 2em"/>
 
 <p>
     Hablando un poco sobre mi, es el primer curso que hago sobre programacion, ya conocia un poco de HTML y CSS, pero nunca profundize en ellos.<br>
@@ -16,14 +17,13 @@
     Siempre me gusto la computacion y todo lo que tenga que ver con ella, el echo de saber que puedo crear cosas de esta forma cada dia me sorprende mas 
     y no dudo de lo que quiero ejercer. <br>
     
-    Por ultimo en el pie de pagina,les dejo mis redes sociales para que puedan conocer un poco mas de mi :)
-
+    Como proyecto final del curso de Python en CoderHouse, presento este blog de noticias donde las personas o diarios pueden publicar 
+    la informacion de todos los dias, creando un usuario y aprovechando todas las herramientas que se les otorgan. 
+    
 </p>
 
 <p>
-   Como proyecto final del curso de Python en CoderHouse, presento este blog de noticias donde las personas o diarios pueden publicar 
-   la informacion de todos los dias, creando un usuario y aprovechando todas las herramientas que se les otorgan. 
+    Por ultimo en el pie de pagina,les dejo mis redes sociales para que puedan conocer un poco mas de mi :)
 </p>
-
 
 {% endblock contenido %}

@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from pagina_blog.models import Noticias
-from pagina_blog.forms import NoticiaFormulario
+from pagina_blog.forms import EditNoticiasForm, NoticiaFormulario
 
 
 
@@ -17,7 +17,7 @@ def inicio(request):
         template_name='pagina_blog/inicio.html'
         )
 
-@login_required
+
 def listar_noticias(request):
     contexto = {
         'noticias' : Noticias.objects.all()
@@ -28,32 +28,15 @@ def listar_noticias(request):
         context = contexto
     ) 
 
-@login_required
-def publicar_noticias(request):
-    if request.method == "POST":
-         formulario = NoticiaFormulario(request.POST)
 
-         if formulario.is_valid():
-             data = formulario.cleaned_data
-             noticia = Noticias(
-                 titulo=data['titulo'], 
-                 subtitulo=data['subtitulo'], 
-                 cuerpo=data['cuerpo'],
-                 fecha_publicacion=data['fecha_publicacion'], 
-                 autor=data['autor'],
-                 )
-             noticia.save()
-             url_exitosa = reverse('listar_noticias')
-             return redirect(url_exitosa)
-    else: 
-         formulario = NoticiaFormulario()
-    return render(
-         request=request,
-         template_name='pagina_blog/form_noticias.html',
-         context={'formulario': formulario},
-    )
+class NoticiaCreateView(LoginRequiredMixin, CreateView):
+    model = Noticias 
+    #fields = ['titulo','subtitulo','cuerpo','fecha_publicacion','autor','imagen']
+    form_class = NoticiaFormulario
+    success_url = reverse_lazy('listar_noticias')
+    template_name = 'pagina_blog/form_noticias.html'
 
-@login_required
+
 def buscar_noticias(request):
     if request.method == "POST":
         data = request.POST
@@ -67,7 +50,7 @@ def buscar_noticias(request):
             context = contexto 
         )
 
-@login_required
+
 def ver_noticia(request, id):
     noticia = Noticias.objects.get(id=id)
     contexto = {
@@ -79,41 +62,21 @@ def ver_noticia(request, id):
         context = contexto
     )
 
-@login_required
-def editar_noticia(request, id):
-    noticia = Noticias.objects.get(id=id)
-    if request.method == "POST":
-        formulario = NoticiaFormulario(request.POST)
 
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            noticia.titulo=data['titulo'] 
-            noticia.subtitulo=data['subtitulo'] 
-            noticia.cuerpo=data['cuerpo']
-            noticia.fecha_publicacion=data['fecha_publicacion'] 
-            noticia.autor=data['autor']
-            noticia.save()
-            url_exitosa = reverse('listar_noticias')
-            return redirect(url_exitosa)
-    else: 
-        inicial = {
-            'titulo' : noticia.titulo,
-            'subtitulo' : noticia.subtitulo,
-            'fecha_publicacion' : noticia.fecha_publicacion,
-            'autor' : noticia.autor,
-        }
-        formulario = NoticiaFormulario(initial=inicial)
-    return render(
-        request=request,
-        template_name='pagina_blog/form_noticias.html',
-        context={'formulario': formulario, 'noticia': noticia, 'es_update': True},
-    )
+class NoticiaEditView(LoginRequiredMixin, UpdateView):
+    model = Noticias 
+    #fields = ['titulo','subtitulo','cuerpo','fecha_publicacion','autor','imagen']
+    form_class = EditNoticiasForm
+    success_url = reverse_lazy('listar_noticias')
+    template_name = 'pagina_blog/editar_noticias.html'
+
 
 def mi_info(request):
     return render(
         request=request,
         template_name='pagina_blog/about.html'
         )
+
 
 class NoticiaDeleteView(LoginRequiredMixin,DeleteView):
     model = Noticias

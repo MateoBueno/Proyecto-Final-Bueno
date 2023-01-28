@@ -5,7 +5,12 @@
 {% block contenido %}
 <h1>{{noticia.titulo}}</h1>
 <h3>{{noticia.subtitulo}}</h3>
+<img src="{{noticia.imagen.url}}" width="1100" height="560"/>
+<br>
+<br>
 <span>{{noticia.cuerpo}}</span>
+<br>
+<br>
 <h6>{{noticia.autor}}</h6>
 <h6>{{noticia.fecha_publicacion}}</h6>
 <br><br>
