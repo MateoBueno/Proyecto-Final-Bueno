@@ -31,10 +31,13 @@ def listar_noticias(request):
 
 class NoticiaCreateView(LoginRequiredMixin, CreateView):
     model = Noticias 
-    #fields = ['titulo','subtitulo','cuerpo','fecha_publicacion','autor','imagen']
     form_class = NoticiaFormulario
     success_url = reverse_lazy('listar_noticias')
     template_name = 'pagina_blog/form_noticias.html'
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super(NoticiaCreateView, self).form_valid(form)
 
 
 def buscar_noticias(request):
@@ -65,7 +68,6 @@ def ver_noticia(request, id):
 
 class NoticiaEditView(LoginRequiredMixin, UpdateView):
     model = Noticias 
-    #fields = ['titulo','subtitulo','cuerpo','fecha_publicacion','autor','imagen']
     form_class = EditNoticiasForm
     success_url = reverse_lazy('listar_noticias')
     template_name = 'pagina_blog/editar_noticias.html'
