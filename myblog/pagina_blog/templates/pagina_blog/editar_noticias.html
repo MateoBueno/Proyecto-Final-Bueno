@@ -3,15 +3,9 @@
 {% block subtitulo %}Editar Noticias{% endblock subtitulo %}
 
 {% block contenido %}
-{% if user.id == celular.usuario.id %}
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Enviar"/>
 </form>
-{% else %}
-<div class="container">
-<h4>No tienes acceso a esta pagina!</h4>
-</div>
-{% endif %}
 {% endblock contenido %}

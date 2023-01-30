@@ -22,6 +22,8 @@ def listar_noticias(request):
     contexto = {
         'noticias' : Noticias.objects.all()
     }
+    for noticia in Noticias.objects.all():
+        print(noticia.titulo)
     return render(
         request = request,
         template_name = 'pagina_blog/lista_noticias.html',
@@ -35,9 +37,6 @@ class NoticiaCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('listar_noticias')
     template_name = 'pagina_blog/form_noticias.html'
 
-    def form_valid(self, form):
-        form.instance.usuario = self.request.user
-        return super(NoticiaCreateView, self).form_valid(form)
 
 
 def buscar_noticias(request):
