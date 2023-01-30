@@ -23,3 +23,5 @@ Repositorio del proyecto final del curso de Python en CoderHouse, comision 47635
 9- Crear SUPERUSER en la Termminal: python manage.py createsuperuser
 
 10- Acceder con user y password via: 127.0.0.1:8000/admin
+
+Link del video del proyecto: https://youtu.be/DP4_fE7K960
